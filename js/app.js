@@ -30,6 +30,7 @@ function appViewModel() {
     const self = this;
     //doesnt work with Model.markers.title or hard coded Model.locations.title
     self.createListings = ko.observableArray(Model.markers);
+    //need to create another oberservable array and push user search into it
 
 }
 
@@ -40,6 +41,9 @@ function initMap() {
         center: forestHills,
         zoom: 14,
     });
+    //need to add foursquare request and hook it up to input box in html 
+    //use hard coded locations to handle request error so that something still displays on the map for the user
+    //need to add listner to show and hide all markers preferably a toggle 
     for (let i = 0; i < Model.locations.length; i++) {
         createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
     }
