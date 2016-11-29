@@ -28,7 +28,7 @@ const Model = {
 
 function appViewModel() {
     const self = this;
-
+    //doesnt work with Model.markers.title or hard coded Model.locations.title
     self.createListings = [{ name: Model.markers.title }];
 
 }
@@ -80,6 +80,6 @@ function initMap() {
             }
         });
     }
-    ko.applyBindings(new appViewModel(Model.markers.title));
+    ko.applyBindings(new appViewModel());
 
 }
