@@ -11,6 +11,13 @@ body {
     float: left;
 }
 
+.list-view {
+    list-style-type: none;
+    margin-bottom: 25px;
+    font-size: 18px;
+    margin-left: 0;
+}
+
 form input {
     margin-top: 10px;
     margin-left: 10px;

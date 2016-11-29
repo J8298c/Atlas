@@ -15,7 +15,8 @@
             <button type="submit">Search</button>
         </form>
         <ul data-bind="foreach: createListings">
-            <li data-bind="text: $data"></li>
+            <li class="list-view" data-bind="text: title">
+            </li>
         </ul>
     </div>
     <div id="map"></div>

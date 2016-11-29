@@ -29,7 +29,7 @@ const Model = {
 function appViewModel() {
     const self = this;
     //doesnt work with Model.markers.title or hard coded Model.locations.title
-    self.createListings = [{ name: Model.markers.title }];
+    self.createListings = ko.observableArray(Model.markers);
 
 }
 
@@ -79,6 +79,12 @@ function initMap() {
                 bounds.extend(this.position)
             }
         });
+
+        function liChooseMarker() {
+            $('.list-view').on('click', function() {
+                console.log($(this).text());
+            })
+        }
     }
     ko.applyBindings(new appViewModel());
 
