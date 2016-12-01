@@ -9,6 +9,8 @@ body {
     height: 100%;
     width: 30%;
     float: left;
+    background-color: #EFEFEF;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .list-view {
@@ -16,19 +18,52 @@ body {
     margin-bottom: 25px;
     font-size: 18px;
     margin-left: 0;
+    color: #2296F3;
+}
+
+form {
+    background-color: #3F51B5;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    height: 8%;
 }
 
 form input {
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 15px;
+    margin-left: 20px;
+    border-radius: 4px;
+    border: 1px solid #3F51B5;
+    height: 40%;
+    width: 60%;
+    padding-left: 15px;
 }
 
 form button {
     margin-top: 10px;
     margin-left: 10px;
+    height: 40%;
+    width: 20%;
+    background-color: #683BB7;
+    color: #EFEFEF;
+    border: 1px solid #683BB7;
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
 #map {
     height: 100%;
     width: 70%;
+}
+
+.marker-title {
+    font-weight: 700;
+    text-decoration: underline;
+    margin-bottom: 10px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.marker-content {
+    font-family: 'Raleway', sans-serif;
 }

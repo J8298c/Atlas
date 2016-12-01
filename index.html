@@ -5,6 +5,7 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto+Slab" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -12,9 +13,10 @@
     <div id="listings">
         <form>
             <input type="text" name="search-bar" placeholder="enter your search">
-            <button type="submit">Search</button>
+            <button type="submit" class="submitbtn">Search</button>
         </form>
         <ul data-bind="foreach: createListings">
+            <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
             <li class="list-view" data-bind="text: title">
             </li>
         </ul>
