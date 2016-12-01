@@ -30,6 +30,7 @@ function appViewModel() {
     const self = this;
     //doesnt work with Model.markers.title or hard coded Model.locations.title
     self.createListings = ko.observableArray(Model.markers);
+    //need to create another oberservable array and push user search into it
 
 
 }
@@ -43,6 +44,9 @@ function initMap() {
         mapTypeControl: false,
         styles: [{ "featureType": "administrative", "elementType": "all", "stylers": [{ "visibility": "on" }, { "lightness": 33 }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2e5d4" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#c5dac6" }] }, { "featureType": "poi.park", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": 20 }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#c5c6c6" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#e4d7c6" }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#fbfaf7" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#acbcc9" }] }]
     });
+    //need to add foursquare request and hook it up to input box in html 
+    //use hard coded locations to handle request error so that something still displays on the map for the user
+    //need to add listner to show and hide all markers preferably a toggle 
     for (let i = 0; i < Model.locations.length; i++) {
         createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
     }
