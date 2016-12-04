@@ -28,11 +28,10 @@ const Model = {
 
 function appViewModel() {
     const self = this;
-    //doesnt work with Model.markers.title or hard coded Model.locations.title
+    console.log(Model.markers);
     self.createListings = ko.observableArray(Model.markers);
     //need to create another oberservable array and push user search into it
 }
-
 
 function initMap() {
     const forestHills = { lat: 40.7181, lng: -73.8448 }
@@ -58,7 +57,6 @@ function initMap() {
                 dataType: 'json',
             }).done(function(data) {
                 let foursqaureResponse = data.response.venues
-                console.log(foursqaureResponse);
                 for (let i = 0; i < foursqaureResponse.length; i++) {
                     createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
                 }
