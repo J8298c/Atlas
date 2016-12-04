@@ -31,8 +31,6 @@ function appViewModel() {
     //doesnt work with Model.markers.title or hard coded Model.locations.title
     self.createListings = ko.observableArray(Model.markers);
     //need to create another oberservable array and push user search into it
-
-
 }
 
 
@@ -45,11 +43,37 @@ function initMap() {
         styles: [{ "featureType": "administrative", "elementType": "all", "stylers": [{ "visibility": "on" }, { "lightness": 33 }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2e5d4" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#c5dac6" }] }, { "featureType": "poi.park", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": 20 }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#c5c6c6" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#e4d7c6" }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#fbfaf7" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#acbcc9" }] }]
     });
     //need to add foursquare request and hook it up to input box in html 
-    //use hard coded locations to handle request error so that something still displays on the map for the user
-    //need to add listner to show and hide all markers preferably a toggle 
-    for (let i = 0; i < Model.locations.length; i++) {
-        createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
+    function getFourSquare() {
+        var client_id = "ZBCPIT5VPYBTT2KNLCWMIJU4BAL4ANCO4MPJHLSJBOYB3D32";
+        var client_secret = '2K5DPY4FG2DN2ZX4JSTWXHUN140LMR1JHGE04YCXOU0P303P';
+        //userless request url passing in search query from
+        //form input
+        var fourSquareUrl = "https://api.foursquare.com/v2/venues/search" +
+            "?client_id=" + client_id +
+            "&client_secret=" + client_secret +
+            "&v=20160815" +
+            "&ll=" + 40.7181 + "," + -73.8448;
+        $.ajax({
+                url: fourSquareUrl,
+                dataType: 'json',
+            }).done(function(data) {
+                let foursqaureResponse = data.response.venues
+                console.log(foursqaureResponse);
+                for (let i = 0; i < foursqaureResponse.length; i++) {
+                    createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
+                }
+
+            })
+            // .error(function(e) {
+            //     //use hard coded locations to handle request error so that something still displays on the map for the user
+            //     //need to add listner to show and hide all markers preferably a toggle 
+            //     for (let i = 0; i < Model.locations.length; i++) {
+            //         createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
+            //     }
+            //     Model.markers.push(marker);
+            // });
     }
+    getFourSquare();
 
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
@@ -65,7 +89,7 @@ function initMap() {
         Model.markers.push(marker);
         let contentStr;
         for (let i = 0; i < Model.markers.length; i++) {
-            contentStr = '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div class="marker-content">' + Model.markers[i].content + '</div>';
+            contentStr = '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div>' + Model.markers[i].content + '</div>';
         }
         let bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
@@ -87,34 +111,6 @@ function initMap() {
             }
         });
 
-        function liChooseMarker() {
-            $('.list-view').on('click', function() {
-                console.log($(this).text());
-            })
-        }
     }
-
-    function getFourSquare() {
-        var client_id = "ZBCPIT5VPYBTT2KNLCWMIJU4BAL4ANCO4MPJHLSJBOYB3D32";
-        var client_secret = '2K5DPY4FG2DN2ZX4JSTWXHUN140LMR1JHGE04YCXOU0P303P';
-        //userless request url passing in search query from
-        //form input
-        var fourSquareUrl = "https://api.foursquare.com/v2/venues/explore" +
-            "?client_id=" + client_id +
-            "&client_secret=" + client_secret +
-            "&v=20130815" +
-            "&ll=" + 40.7181 + "," + -73.8448;
-        $.ajax({
-            url: fourSquareUrl,
-            dataType: 'json',
-        }).done(function(data) {
-            console.log(data);
-            // for (let i = 0; i < data.response.length; i++)
-            //     createMarker(data.response.venues[i].location, data.response.venues[i].name)
-        });
-        // initMap();
-    }
-    getFourSquare();
     ko.applyBindings(new appViewModel());
-
 }
