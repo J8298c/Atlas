@@ -1,4 +1,5 @@
 let map;
+let vm;
 const Model = {
     //Places of intrests hardcoded into app.js to work on failure from 
     //foursquare api request so users still has some markers show up on map
@@ -26,18 +27,18 @@ const Model = {
     markers: [],
 }
 
-function appViewModel() {
+function appViewModel(marker) {
     const self = this;
-    console.log(Model.markers);
-    self.createListings = ko.observableArray(Model.markers);
+    self.createListings = ko.observableArray();
     //need to create another oberservable array and push user search into it
 }
 
 function initMap() {
     const forestHills = { lat: 40.7181, lng: -73.8448 }
+    vm = new appViewModel();
     map = new google.maps.Map(document.getElementById('map'), {
         center: forestHills,
-        zoom: 14,
+        zoom: 15,
         mapTypeControl: false,
         styles: [{ "featureType": "administrative", "elementType": "all", "stylers": [{ "visibility": "on" }, { "lightness": 33 }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2e5d4" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#c5dac6" }] }, { "featureType": "poi.park", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": 20 }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#c5c6c6" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#e4d7c6" }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#fbfaf7" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#acbcc9" }] }]
     });
@@ -53,26 +54,16 @@ function initMap() {
             "&v=20160815" +
             "&ll=" + 40.7181 + "," + -73.8448;
         $.ajax({
-                url: fourSquareUrl,
-                dataType: 'json',
-            }).done(function(data) {
-                let foursqaureResponse = data.response.venues
-                for (let i = 0; i < foursqaureResponse.length; i++) {
-                    createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
-                }
-
-            })
-            // .error(function(e) {
-            //     //use hard coded locations to handle request error so that something still displays on the map for the user
-            //     //need to add listner to show and hide all markers preferably a toggle 
-            //     for (let i = 0; i < Model.locations.length; i++) {
-            //         createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
-            //     }
-            //     Model.markers.push(marker);
-            // });
+            url: fourSquareUrl,
+            dataType: 'json',
+        }).done(function(data) {
+            let foursqaureResponse = data.response.venues
+            for (let i = 0; i < foursqaureResponse.length; i++) {
+                createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
+            }
+        })
     }
     getFourSquare();
-
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
     function createMarker(position, title, content) {
@@ -85,6 +76,7 @@ function initMap() {
             animation: google.maps.Animation.DROP
         })
         Model.markers.push(marker);
+        vm.createListings.push(marker);
         let contentStr;
         for (let i = 0; i < Model.markers.length; i++) {
             contentStr = '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div>' + Model.markers[i].content + '</div>';
@@ -108,7 +100,6 @@ function initMap() {
                 bounds.extend(this.position)
             }
         });
-
     }
-    ko.applyBindings(new appViewModel());
+    ko.applyBindings(new appViewModel(vm));
 }

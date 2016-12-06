@@ -5,6 +5,10 @@ body {
     margin: 0;
 }
 
+.mobile-search-bar {
+    display: none;
+}
+
 #listings {
     height: 100%;
     width: 30%;
@@ -66,4 +70,16 @@ form button {
 
 .marker-content {
     font-family: 'Raleway', sans-serif;
+}
+
+@media only screen and (max-device-width: 600px) {
+    #listings {
+        display: none;
+    }
+    #map {
+        width: 100%;
+    }
+    .mobile-search-bar {
+        width: 55%;
+    }
 }
