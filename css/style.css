@@ -82,14 +82,24 @@ form button {
     font-family: 'Raleway', sans-serif;
 }
 
-@media only screen and (max-device-width: 600px) {
+@media (max-width: 699px) {
     #listings {
         display: none;
     }
-    #map {
+    .fixed {
         width: 100%;
     }
     .mobile-search-bar {
-        width: 55%;
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+    }
+    .search-btn {
+        width: 100px;
     }
 }

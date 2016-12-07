@@ -31,6 +31,7 @@ function appViewModel(marker) {
     const self = this;
     self.createListings = ko.observableArray();
     //need to create another oberservable array and push user search into it
+
 }
 
 function initMap() {
@@ -61,6 +62,10 @@ function initMap() {
             for (let i = 0; i < foursqaureResponse.length; i++) {
                 createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
             }
+        }).fail(function() {
+            for (let i = 0; i < Model.locations.length; i++) {
+                createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
+            }
         })
     }
     getFourSquare();
@@ -77,29 +82,40 @@ function initMap() {
         })
         Model.markers.push(marker);
         vm.createListings.push(marker);
+        const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         let contentStr;
         for (let i = 0; i < Model.markers.length; i++) {
-            contentStr = '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div>' + Model.markers[i].content + '</div>';
+            contentStr = '<div><img src="' + streetViewURL + position + '">' + '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div>' + Model.markers[i].content + '</div>';
         }
         let bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
         let infowindow = new google.maps.InfoWindow({});
         //listener to animate marker upon click changes icon color and animation 
         //sets infowindow content when maker is clicked and opens infowindow
-        marker.addListener('click', function() {
-            if (this.getAnimation() !== null) {
-                this.setAnimation(null);
-                this.setIcon('http://maps.google.com/mapfiles/marker_yellow.png');
-                infowindow.close(map, this);
-            } else {
-                $(this).addClass('clickable');
-                this.setAnimation(google.maps.Animation.BOUNCE);
-                this.setIcon('http://maps.google.com/mapfiles/marker_purple.png');
-                infowindow.setContent(contentStr);
-                infowindow.open(map, this);
-                bounds.extend(this.position)
-            }
-        });
+        function markerAnimate() {
+            marker.addListener('click', function() {
+                if (this.getAnimation() !== null) {
+                    this.setAnimation(null);
+                    this.setIcon('http://maps.google.com/mapfiles/marker_yellow.png');
+                    infowindow.close(map, this);
+                } else {
+                    $(this).addClass('clickable');
+                    this.setAnimation(google.maps.Animation.BOUNCE);
+                    this.setIcon('http://maps.google.com/mapfiles/marker_purple.png');
+                    infowindow.setContent(contentStr);
+                    infowindow.open(map, this);
+                    bounds.extend(this.position)
+                }
+            });
+        }
+        //need to work on function that animates marker when lsiting is clicked
+        // $('.list-view').on('click', function() {
+        //     if ($(this).text() == Model.markers.title) {
+        //         console.log($(this).text())
+        //     }
+        // })
+        markerAnimate();
     }
+
     ko.applyBindings(vm);
 }
