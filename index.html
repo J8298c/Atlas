@@ -19,16 +19,18 @@
         </form>
         <ul data-bind="foreach: createListings">
             <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
-            <li class="list-view" data-bind="text: $data">
+            <li class="list-view" data-bind="text: title">
             </li>
         </ul>
     </div>
-    <div id="map">
-        <!--used for mobile view only -->
-        <form class="mobile-search-bar">
-            <input type="text" class="mobile-search">
-            <button class="mobile-submit"></button>
-        </form>
+    <div class="fixed">
+        <div id="map">
+            <!--used for mobile view only -->
+            <form class="mobile-search-bar">
+                <input type="text" class="mobile-search">
+                <button class="mobile-submit"></button>
+            </form>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8kGZ-0XTqTP-2z0CS3GytBjx6HDDJ-8M&callback=initMap" async defer></script>

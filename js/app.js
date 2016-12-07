@@ -101,5 +101,5 @@ function initMap() {
             }
         });
     }
-    ko.applyBindings(new appViewModel(vm));
+    ko.applyBindings(vm);
 }
