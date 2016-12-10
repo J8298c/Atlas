@@ -82,6 +82,10 @@ form button {
     font-family: 'Raleway', sans-serif;
 }
 
+.search-bar {
+    display: none;
+}
+
 @media (max-width: 699px) {
     #listings {
         display: none;

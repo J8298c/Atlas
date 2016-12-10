@@ -24,19 +24,22 @@ const Model = {
         location: { lat: 40.7194, lng: -73.8452 },
         content: "Pahal Zan is a cornerstone in the Forest Hills community and has been recognized for its outstanding Mediterranean cuisine, excellent service and friendly staff."
     }],
-    markers: [],
+    markers: []
 }
 
-function appViewModel(marker) {
+function AppViewModel(marker) {
     const self = this;
     self.createListings = ko.observableArray();
     //need to create another oberservable array and push user search into it
-
+    self.activateMarker = function(currentItem) {
+        var marker = currentItem;
+        google.maps.event.trigger(marker, 'click');
+    };
 }
 
 function initMap() {
     const forestHills = { lat: 40.7181, lng: -73.8448 }
-    vm = new appViewModel();
+    vm = new AppViewModel();
     map = new google.maps.Map(document.getElementById('map'), {
         center: forestHills,
         zoom: 15,
@@ -59,6 +62,9 @@ function initMap() {
             dataType: 'json',
         }).done(function(data) {
             let foursqaureResponse = data.response.venues
+            Model.markers.push(foursqaureResponse);
+            // Model.markers.shift();
+            console.log(Model.markers);
             for (let i = 0; i < foursqaureResponse.length; i++) {
                 createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
             }
@@ -80,7 +86,6 @@ function initMap() {
             icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
             animation: google.maps.Animation.DROP
         })
-        Model.markers.push(marker);
         vm.createListings.push(marker);
         const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         let contentStr;
