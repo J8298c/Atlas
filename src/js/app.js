@@ -30,12 +30,13 @@ const Model = {
 function AppViewModel(marker) {
     const self = this;
     self.createListings = ko.observableArray();
-    //need to create another oberservable array and push user search into it
+    //function to associates list title to marker to animate on click
     self.activateMarker = function(currentItem) {
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
 }
+
 
 function initMap() {
     const forestHills = { lat: 40.7181, lng: -73.8448 }
@@ -61,12 +62,14 @@ function initMap() {
             url: fourSquareUrl,
             dataType: 'json',
         }).done(function(data) {
-            let foursqaureResponse = data.response.venues
-            Model.markers.push(foursqaureResponse);
-            // Model.markers.shift();
-            console.log(Model.markers);
-            for (let i = 0; i < foursqaureResponse.length; i++) {
-                createMarker(foursqaureResponse[i].location, foursqaureResponse[i].name, foursqaureResponse[i].url)
+            let foursquareResponse = data.response.venues
+            if (Model.markers.length === 0) {
+                console.log('nothing in the marker')
+                Model.markers.push(foursquareResponse)
+            }
+            console.log(Model.markers[0].length);
+            for (let i = 0; i < Model.markers[0].length; i++) {
+                createMarker(Model.markers[0][i].location, Model.markers[0][i].name)
             }
         }).fail(function() {
             for (let i = 0; i < Model.locations.length; i++) {
@@ -77,21 +80,21 @@ function initMap() {
     getFourSquare();
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
-    function createMarker(position, title, content) {
+    function createMarker(position, title) {
+        const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
+        let contentStr;
+        for (let i = 0; i < Model.markers[0].length; i++) {
+            contentStr = '<div><img src="' + streetViewURL + Model.markers[0][i].location.formattedAddress + '">' + '<div class="marker-title">' + Model.markers[0][i].name + '</div>';
+        }
         let marker = new google.maps.Marker({
             position: position,
             title: title,
-            content: content,
+            content: contentStr,
             map: map,
             icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
             animation: google.maps.Animation.DROP
         })
         vm.createListings.push(marker);
-        const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
-        let contentStr;
-        for (let i = 0; i < Model.markers.length; i++) {
-            contentStr = '<div><img src="' + streetViewURL + position + '">' + '<div class="marker-title">' + Model.markers[i].title + '</div>' + '<div>' + Model.markers[i].content + '</div>';
-        }
         let bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
         let infowindow = new google.maps.InfoWindow({});
@@ -107,7 +110,7 @@ function initMap() {
                     $(this).addClass('clickable');
                     this.setAnimation(google.maps.Animation.BOUNCE);
                     this.setIcon('http://maps.google.com/mapfiles/marker_purple.png');
-                    infowindow.setContent(contentStr);
+                    infowindow.setContent(this.content);
                     infowindow.open(map, this);
                     bounds.extend(this.position)
                 }
