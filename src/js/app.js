@@ -71,7 +71,7 @@ function initMap() {
             for (let i = 0; i < Model.markers[0].length; i++) {
                 createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress)
                 if (Model.markers[0][i].categories[0] !== undefined) {
-                    console.log(Model.markers[0][i].categories[0].name);
+                    // console.log(Model.markers[0][i].categories[0].name);
                     let categories = Model.markers[0][i].categories[0].name;
                     console.log(categories);
                     vm.chooseCategory.push(categories);
