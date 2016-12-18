@@ -1,7 +1,7 @@
 let map;
 let vm;
 const Model = {
-    //Places of intrests hardcoded into app.js to work on failure from 
+    //Places of intrests hardcoded into app.js to work on failure from
     //foursquare api request so users still has some markers show up on map
     locations: [{
         title: 'Forest Park Carasouel',
@@ -35,6 +35,7 @@ function AppViewModel(marker) {
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
+    self.chooseCategory = ko.observableArray();
 }
 
 
@@ -47,7 +48,7 @@ function initMap() {
         mapTypeControl: false,
         styles: [{ "featureType": "administrative", "elementType": "all", "stylers": [{ "visibility": "on" }, { "lightness": 33 }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2e5d4" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#c5dac6" }] }, { "featureType": "poi.park", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": 20 }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#c5c6c6" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#e4d7c6" }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#fbfaf7" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }, { "color": "#acbcc9" }] }]
     });
-    //need to add foursquare request and hook it up to input box in html 
+    //need to add foursquare request and hook it up to input box in html
     function getFourSquare() {
         var client_id = "ZBCPIT5VPYBTT2KNLCWMIJU4BAL4ANCO4MPJHLSJBOYB3D32";
         var client_secret = '2K5DPY4FG2DN2ZX4JSTWXHUN140LMR1JHGE04YCXOU0P303P';
@@ -65,11 +66,17 @@ function initMap() {
             let foursquareResponse = data.response.venues
             if (Model.markers.length === 0) {
                 console.log('nothing in the marker')
-                Model.markers.push(foursquareResponse)
+                Model.markers.push(foursquareResponse);
             }
-            console.log(Model.markers[0].length);
             for (let i = 0; i < Model.markers[0].length; i++) {
-                createMarker(Model.markers[0][i].location, Model.markers[0][i].name)
+                createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress)
+                if (Model.markers[0][i].categories[0] !== undefined) {
+                    console.log(Model.markers[0][i].categories[0].name);
+                    let categories = Model.markers[0][i].categories[0].name;
+                    console.log(categories);
+                    vm.chooseCategory.push(categories);
+                }
+
             }
         }).fail(function() {
             for (let i = 0; i < Model.locations.length; i++) {
@@ -80,16 +87,16 @@ function initMap() {
     getFourSquare();
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
-    function createMarker(position, title) {
+    function createMarker(location, name, formattedAddress) {
         const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
-        let contentStr;
+        //move content str below create marker && just use created marker position and name as props
         for (let i = 0; i < Model.markers[0].length; i++) {
-            contentStr = '<div><img src="' + streetViewURL + Model.markers[0][i].location.formattedAddress + '">' + '<div class="marker-title">' + Model.markers[0][i].name + '</div>';
+            content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>';
         }
         let marker = new google.maps.Marker({
-            position: position,
-            title: title,
-            content: contentStr,
+            position: location,
+            title: name,
+            content: content,
             map: map,
             icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
             animation: google.maps.Animation.DROP
@@ -98,8 +105,9 @@ function initMap() {
         let bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
         let infowindow = new google.maps.InfoWindow({});
-        //listener to animate marker upon click changes icon color and animation 
+        //listener to animate marker upon click changes icon color and animation
         //sets infowindow content when maker is clicked and opens infowindow
+
         function markerAnimate() {
             marker.addListener('click', function() {
                 if (this.getAnimation() !== null) {
@@ -116,12 +124,6 @@ function initMap() {
                 }
             });
         }
-        //need to work on function that animates marker when lsiting is clicked
-        // $('.list-view').on('click', function() {
-        //     if ($(this).text() == Model.markers.title) {
-        //         console.log($(this).text())
-        //     }
-        // })
         markerAnimate();
     }
 

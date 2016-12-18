@@ -14,8 +14,9 @@
         <!--need to add buttons to toggle markers visibilty-->
         <form>
             <!--need to hook up to js to grab search value and push to an observable array? or store in var-->
-            <input type="text" name="search-bar" placeholder="enter your search">
-            <button type="submit" class="submitbtn">Search</button>
+            <select data-bind="foreach: chooseCategory">
+                <option data-bind="text: $data, click: $root.activateMarker"></option>
+            </select>
         </form>
         <ul data-bind="foreach: createListings">
             <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
