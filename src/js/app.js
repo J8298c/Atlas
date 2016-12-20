@@ -117,6 +117,14 @@ function initMap() {
             });
         }
         markerAnimate();
+        //set to clear markers when the submit button is clicked
+        //which is used to que up google place search 
+        //which uses create marker function
+        //keeps map tidy with only the search results user wants to see
+        $('.submitBtn').on('click', function(){
+        	marker.setMap(null);
+        	console.log('I cleared the old markers');
+        })
     }
     let stringSearch;
     //sets up search for results wihin forest hills
@@ -140,20 +148,18 @@ function initMap() {
     	service.textSearch(request, callback);
     	function callback(results, status) {
     		if(status == google.maps.places.PlacesServiceStatus.OK){
-    			console.log(results);
-    			clearMarkers();
+    			Model.markers =[];
+    			Model.markers.push(results);
     			for(let i = 0; i < results.length; i++){
     				createMarker(results[i].geometry.location, results[i].name, results[i].formatted_address );
     			}
     		}
     	}
     }
-    function clearMarkers() {
-    	console.log('no more markers');
-    }
+
     ko.applyBindings(vm);
 }
-
+//NOTES- to self
 //to use all markers from same location and just rewrite can use 
 //for(let i =0; i < Model.markers.length; i++){
 //		Model.markers.pop(i)}

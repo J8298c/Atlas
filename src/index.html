@@ -16,7 +16,7 @@
             <button class="submitBtn">Search</button>
             <!--will only display in mobile view to show names of locations from request-->
             <select class="mobileSelect" data-bind="foreach: createListings">
-                <option data-bind="text: title, click: $root.activateMarker"></option>
+                <option data-bind="text: name, click: $root.activateMarker"></option>
             </select>
         </form>
     
