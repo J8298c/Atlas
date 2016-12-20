@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -8,27 +7,24 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto+Slab" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
     <div id="listings">
         <!--need to add buttons to toggle markers visibilty-->
         <form>
             <!--need to hook up to js to grab search value and push to an observable array? or store in var-->
-            <select data-bind="foreach: chooseCategory">
-                <option data-bind="text: $data, click: $root.activateMarker"></option>
+            <input type="text" class="desktopInput">
+            <button class="submitBtn">Search</button>
+            <!--will only display in mobile view to show names of locations from request-->
+            <select class="mobileSelect" data-bind="foreach: createListings">
+                <option data-bind="text: title, click: $root.activateMarker"></option>
             </select>
         </form>
+    
         <ul data-bind="foreach: createListings">
             <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
             <li class="list-view" data-bind="text: title, click: $root.activateMarker">
             </li>
         </ul>
-    </div>
-    <div class="search-bar">
-        <form>
-            <input type="text" name="" value="">
-            <button class="search-btn">Search</button>
-        </form>
     </div>
     <div class="fixed">
         <div id="map"></div>
@@ -36,7 +32,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
     <script src="js/app.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8kGZ-0XTqTP-2z0CS3GytBjx6HDDJ-8M&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8kGZ-0XTqTP-2z0CS3GytBjx6HDDJ-8M&callback=initMap&libraries=places" async defer></script>
 </body>
-
 </html>

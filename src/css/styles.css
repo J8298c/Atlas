@@ -6,9 +6,6 @@ body {
     width: 100%;
 }
 
-.mobile-search-bar {
-    display: none;
-}
 
 #listings {
     height: 1700px;
@@ -25,6 +22,7 @@ body {
     margin-left: 0;
     color: #2296F3;
     height: 100%;
+    cursor: pointer;
 }
 
 form {
@@ -50,6 +48,12 @@ form input {
     height: 100%;
     display: inline-block;
     width: 70%;
+}
+.fixed-search {
+    position: fixed;
+    height: 100%;
+    display: inline-block;
+    width: 30%;
 }
 
 #map {
@@ -78,6 +82,10 @@ select {
     margin-left: 25px;
 }
 
+.mobileSelect{
+    display: none;
+}
+
 @media (max-width: 699px) {
     #listings {
         display: none;
@@ -97,5 +105,8 @@ select {
     }
     .search-btn {
         width: 100px;
+    }
+    .mobileSelect{
+        width: 100%;
     }
 }

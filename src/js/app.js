@@ -27,6 +27,7 @@ const Model = {
     markers: []
 }
 
+// knockout ViewModel Obj
 function AppViewModel(marker) {
     const self = this;
     self.createListings = ko.observableArray();
@@ -35,9 +36,7 @@ function AppViewModel(marker) {
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
-    self.chooseCategory = ko.observableArray();
 }
-
 
 function initMap() {
     const forestHills = { lat: 40.7181, lng: -73.8448 }
@@ -69,14 +68,7 @@ function initMap() {
                 Model.markers.push(foursquareResponse);
             }
             for (let i = 0; i < Model.markers[0].length; i++) {
-                createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress)
-                if (Model.markers[0][i].categories[0] !== undefined) {
-                    // console.log(Model.markers[0][i].categories[0].name);
-                    let categories = Model.markers[0][i].categories[0].name;
-                    console.log(categories);
-                    vm.chooseCategory.push(categories);
-                }
-
+                createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress);
             }
         }).fail(function() {
             for (let i = 0; i < Model.locations.length; i++) {
@@ -126,6 +118,42 @@ function initMap() {
         }
         markerAnimate();
     }
-
+    let stringSearch;
+    //sets up search for results wihin forest hills
+        $('form').submit(function(e){
+        	e.preventDefault();
+        	//grabs string search to be used as value 
+        	//for google places search query
+        	let stringSearch = $('.desktopInput').val();
+        	console.log(stringSearch);
+        	getPlaces(stringSearch);
+        	$('.desktopInput').val('');
+        });
+        //function using google places using stringSearch set in above as param
+    function getPlaces(stringSearch){
+    	let request = {
+    		location: { lat: 40.7194, lng: -73.8452 },
+    		radius: '100',
+    		query: stringSearch
+    	}
+    	service = new google.maps.places.PlacesService(map);
+    	service.textSearch(request, callback);
+    	function callback(results, status) {
+    		if(status == google.maps.places.PlacesServiceStatus.OK){
+    			console.log(results);
+    			clearMarkers();
+    			for(let i = 0; i < results.length; i++){
+    				createMarker(results[i].geometry.location, results[i].name, results[i].formatted_address );
+    			}
+    		}
+    	}
+    }
+    function clearMarkers() {
+    	console.log('no more markers');
+    }
     ko.applyBindings(vm);
 }
+
+//to use all markers from same location and just rewrite can use 
+//for(let i =0; i < Model.markers.length; i++){
+//		Model.markers.pop(i)}
