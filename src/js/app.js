@@ -25,7 +25,7 @@ const Model = {
         content: "Pahal Zan is a cornerstone in the Forest Hills community and has been recognized for its outstanding Mediterranean cuisine, excellent service and friendly staff."
     }],
     markers: []
-}
+};
 
 // knockout ViewModel Obj
 function AppViewModel(marker) {
@@ -92,7 +92,7 @@ function initMap() {
             map: map,
             icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
             animation: google.maps.Animation.DROP
-        })
+        });
         vm.createListings.push(marker);
         let bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
@@ -134,6 +134,7 @@ function initMap() {
         	//for google places search query
         	let stringSearch = $('.desktopInput').val();
         	console.log(stringSearch);
+        	vm.createListings.removeAll();
         	getPlaces(stringSearch);
         	$('.desktopInput').val('');
         });
@@ -156,7 +157,6 @@ function initMap() {
     		}
     	}
     }
-
     ko.applyBindings(vm);
 }
 //NOTES- to self
