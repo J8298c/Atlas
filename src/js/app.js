@@ -132,11 +132,11 @@ function initMap() {
         	e.preventDefault();
         	//grabs string search to be used as value 
         	//for google places search query
-        	let stringSearch = $('.desktopInput').val();
+        	let stringSearch = $('input').val();
         	console.log(stringSearch);
         	vm.createListings.removeAll();
         	getPlaces(stringSearch);
-        	$('.desktopInput').val('');
+        	$('input').val('');
         });
         //function using google places using stringSearch set in above as param
     function getPlaces(stringSearch){

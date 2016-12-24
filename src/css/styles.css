@@ -25,7 +25,7 @@ body {
     cursor: pointer;
 }
 
-form {
+#desktop-form {
     background-color: #3F51B5;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
@@ -33,7 +33,7 @@ form {
     height: 55px;
 }
 
-form input {
+#desktop-form input {
     margin-top: 15px;
     margin-left: 20px;
     border-radius: 4px;
@@ -82,31 +82,32 @@ select {
     margin-left: 25px;
 }
 
-.mobileSelect{
-    display: none;
+#mobile-view {
+    display: none
 }
 
 @media (max-width: 699px) {
     #listings {
         display: none;
     }
+    #mobile-view {
+        display: block;
+        height: 55px;
+        background-color: #3949AB;
+    }
+    .mobileSelect {
+        width: 60%;
+        margin-top: 10px;
+        margin-left: 15px;
+        border: 1px solid white;
+        border-radius: 4px;
+    }
+    .mobileBtn {
+        border: 1px solid white;
+        background-color: white;
+        border-radius: 6px;
+    }
     .fixed {
-        width: 100%;
-    }
-    .mobile-search-bar {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-    }
-    .search-btn {
-        width: 100px;
-    }
-    .mobileSelect{
         width: 100%;
     }
 }
