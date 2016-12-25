@@ -1,6 +1,6 @@
-let map;
-let vm;
-const Model = {
+var map;
+var vm;
+var Model = {
     //Places of intrests hardcoded into app.js to work on failure from
     //foursquare api request so users still has some markers show up on map
     locations: [{
@@ -29,7 +29,7 @@ const Model = {
 
 // knockout ViewModel Obj
 function AppViewModel(marker) {
-    const self = this;
+    var self = this;
     self.createListings = ko.observableArray();
     //function to associates list title to marker to animate on click
     self.activateMarker = function(currentItem) {
@@ -39,7 +39,7 @@ function AppViewModel(marker) {
 }
 
 function initMap() {
-    const forestHills = { lat: 40.7181, lng: -73.8448 }
+    var forestHills = { lat: 40.7181, lng: -73.8448 }
     vm = new AppViewModel();
     map = new google.maps.Map(document.getElementById('map'), {
         center: forestHills,
@@ -62,16 +62,16 @@ function initMap() {
             url: fourSquareUrl,
             dataType: 'json',
         }).done(function(data) {
-            let foursquareResponse = data.response.venues
+            var foursquareResponse = data.response.venues
             if (Model.markers.length === 0) {
                 console.log('nothing in the marker')
                 Model.markers.push(foursquareResponse);
             }
-            for (let i = 0; i < Model.markers[0].length; i++) {
+            for (var i = 0; i < Model.markers[0].length; i++) {
                 createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress);
             }
         }).fail(function() {
-            for (let i = 0; i < Model.locations.length; i++) {
+            for (var i = 0; i < Model.locations.length; i++) {
                 createMarker(Model.locations[i].location, Model.locations[i].title, Model.locations[i].content)
             }
         })
@@ -80,12 +80,12 @@ function initMap() {
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
     function createMarker(location, name, formattedAddress) {
-        const streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
+        var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         //move content str below create marker && just use created marker position and name as props
-        for (let i = 0; i < Model.markers[0].length; i++) {
+        for (var i = 0; i < Model.markers[0].length; i++) {
             content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>';
         }
-        let marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             position: location,
             title: name,
             content: content,
@@ -94,9 +94,9 @@ function initMap() {
             animation: google.maps.Animation.DROP
         });
         vm.createListings.push(marker);
-        let bounds = new google.maps.LatLngBounds();
+        var bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
-        let infowindow = new google.maps.InfoWindow({});
+        var infowindow = new google.maps.InfoWindow({});
         //listener to animate marker upon click changes icon color and animation
         //sets infowindow content when maker is clicked and opens infowindow
 
@@ -121,45 +121,42 @@ function initMap() {
         //which is used to que up google place search 
         //which uses create marker function
         //keeps map tidy with only the search results user wants to see
-        $('.submitBtn').on('click', function(){
-        	marker.setMap(null);
-        	console.log('I cleared the old markers');
+        $('.submitBtn').on('click', function() {
+            marker.setMap(null);
+            console.log('I cleared the old markers');
         })
     }
-    let stringSearch;
+    var stringSearch;
     //sets up search for results wihin forest hills
-        $('form').submit(function(e){
-        	e.preventDefault();
-        	//grabs string search to be used as value 
-        	//for google places search query
-        	let stringSearch = $('input').val();
-        	console.log(stringSearch);
-        	vm.createListings.removeAll();
-        	getPlaces(stringSearch);
-        	$('input').val('');
-        });
-        //function using google places using stringSearch set in above as param
-    function getPlaces(stringSearch){
-    	let request = {
-    		location: { lat: 40.7194, lng: -73.8452 },
-    		radius: '100',
-    		query: stringSearch
-    	}
-    	service = new google.maps.places.PlacesService(map);
-    	service.textSearch(request, callback);
-    	function callback(results, status) {
-    		if(status == google.maps.places.PlacesServiceStatus.OK){
-    			Model.markers =[];
-    			Model.markers.push(results);
-    			for(let i = 0; i < results.length; i++){
-    				createMarker(results[i].geometry.location, results[i].name, results[i].formatted_address );
-    			}
-    		}
-    	}
+    $('form').submit(function(e) {
+        e.preventDefault();
+        //grabs string search to be used as value 
+        //for google places search query
+        var stringSearch = $('input').val();
+        console.log(stringSearch);
+        vm.createListings.removeAll();
+        getPlaces(stringSearch);
+        $('input').val('');
+    });
+    //function using google places using stringSearch set in above as param
+    function getPlaces(stringSearch) {
+        var request = {
+            location: { lat: 40.7194, lng: -73.8452 },
+            radius: '100',
+            query: stringSearch
+        }
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, callback);
+
+        function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                Model.markers = [];
+                Model.markers.push(results);
+                for (var i = 0; i < results.length; i++) {
+                    createMarker(results[i].geometry.location, results[i].name, results[i].formatted_address);
+                }
+            }
+        }
     }
     ko.applyBindings(vm);
 }
-//NOTES- to self
-//to use all markers from same location and just rewrite can use 
-//for(let i =0; i < Model.markers.length; i++){
-//		Model.markers.pop(i)}
