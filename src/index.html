@@ -8,23 +8,16 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!--used for mobile version of app-->
-   <div id="mobile-view">
-       <form id="mobile-form">
-            <input class="mobileSelect" type="text">
-            <button class="mobileBtn">Search</button>
-        </form>
-   </div>
     <div id="listings">
         <!--need to add buttons to toggle markers visibilty-->
-        <form id="desktop-form">
+        <form>
             <!--need to hook up to js to grab search value and push to an observable array? or store in var-->
-            <input type="text" class="desktopInput">
+            <input type="text">
             <button class="submitBtn">Search</button>
             <!--will only display in mobile view to show names of locations from request-->
         </form>
         <!--will only display in mobile view to show names of locations from request-->
-        <ul data-bind="foreach: createListings">
+        <ul class="requestlist" data-bind="foreach: createListings">
             <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
             <li class="list-view" data-bind="text: title, click: $root.activateMarker">
             </li>

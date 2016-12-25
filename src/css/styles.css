@@ -25,7 +25,7 @@ body {
     cursor: pointer;
 }
 
-#desktop-form {
+form {
     background-color: #3F51B5;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
@@ -33,7 +33,7 @@ body {
     height: 55px;
 }
 
-#desktop-form input {
+form input {
     margin-top: 15px;
     margin-left: 20px;
     border-radius: 4px;
@@ -82,32 +82,22 @@ select {
     margin-left: 25px;
 }
 
-#mobile-view {
-    display: none
-}
+
 
 @media (max-width: 699px) {
-    #listings {
+    .requestlist {
         display: none;
     }
-    #mobile-view {
-        display: block;
+    #listings {
+       display: block;
+        width: 100%;
         height: 55px;
-        background-color: #3949AB;
-    }
-    .mobileSelect {
-        width: 60%;
-        margin-top: 10px;
-        margin-left: 15px;
-        border: 1px solid white;
-        border-radius: 4px;
-    }
-    .mobileBtn {
-        border: 1px solid white;
-        background-color: white;
-        border-radius: 6px;
+        zindex: 1;
     }
     .fixed {
         width: 100%;
+        height: 100%;
+        display: block;
+        margin-top: 60px;
     }
 }
