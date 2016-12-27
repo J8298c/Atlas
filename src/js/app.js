@@ -98,8 +98,7 @@ function initMap() {
         var bounds = new google.maps.LatLngBounds();
         //pushes new created marker into markers array in model
         var infowindow = new google.maps.InfoWindow({});
-        //listener to animate marker upon click changes icon color and animation
-        //sets infowindow content when maker is clicked and opens infowindow
+        //function to hide all current markers on map
         function hideMarker(){
             $('.remove').on('click', function(){
                 console.log('poof theyre gone');
@@ -109,6 +108,7 @@ function initMap() {
             })
         }
         hideMarker()
+        //function to set markers back on map after user clicks the hide marker
          function showMarker(){
             $('.show').on('click', function(){
                 console.log('poof theyre back');
@@ -118,6 +118,8 @@ function initMap() {
             })
         }
         showMarker();
+        //function that handles the marker actions when clicked
+        //changes color of marker and changes markers animation
         function markerAnimate() {
             marker.addListener('click', function() {
                 if (this.getAnimation() !== null) {
@@ -134,7 +136,14 @@ function initMap() {
                 }
             });
         }
+        
         markerAnimate();
+        //clears all current markers to before dropinng in users search newly
+        //created markers
+        $('.submitBtn').on('click', function(){
+            marker.setMap(null);
+            console.log('Clearing those pesky markers out');
+        })
     }
    
     var stringSearch;
