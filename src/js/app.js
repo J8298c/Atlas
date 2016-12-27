@@ -36,6 +36,7 @@ function AppViewModel(marker) {
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
+   
 }
 
 function initMap() {
@@ -99,7 +100,24 @@ function initMap() {
         var infowindow = new google.maps.InfoWindow({});
         //listener to animate marker upon click changes icon color and animation
         //sets infowindow content when maker is clicked and opens infowindow
-
+        function hideMarker(){
+            $('.remove').on('click', function(){
+                console.log('poof theyre gone');
+                for(var i = 0; i < Model.markers.length; i++){
+                    marker.setVisible(false);
+                }
+            })
+        }
+        hideMarker()
+         function showMarker(){
+            $('.show').on('click', function(){
+                console.log('poof theyre back');
+                for(var i = 0; i < Model.markers.length; i++){
+                    marker.setVisible(true);
+                }
+            })
+        }
+        showMarker();
         function markerAnimate() {
             marker.addListener('click', function() {
                 if (this.getAnimation() !== null) {
@@ -117,15 +135,8 @@ function initMap() {
             });
         }
         markerAnimate();
-        //set to clear markers when the submit button is clicked
-        //which is used to que up google place search 
-        //which uses create marker function
-        //keeps map tidy with only the search results user wants to see
-        $('.submitBtn').on('click', function() {
-            marker.setMap(null);
-            console.log('I cleared the old markers');
-        })
     }
+   
     var stringSearch;
     //sets up search for results wihin forest hills
     $('form').submit(function(e) {
