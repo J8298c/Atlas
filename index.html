@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway|Roboto+Slab" rel="stylesheet">
     <style>
-        html,body{height:100%;padding:0;margin:0;width:100%}#listings{height:1700px;width:30%;float:left;background-color:#EFEFEF;font-family:'Montserrat',sans-serif}.list-view{list-style-type:none;margin-bottom:25px;font-size:18px;margin-left:0;color:#2296F3;height:100%;cursor:pointer}form{background-color:#3F51B5;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,0.75);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,0.75);box-shadow:0 2px 5px 0 rgba(0,0,0,0.75);height:55px}form input{margin-top:15px;margin-left:20px;border-radius:4px;border:1px solid #3F51B5;height:40%;width:60%;padding-left:15px}.fixed{position:fixed;height:100%;display:inline-block;width:70%}.fixed-search{position:fixed;height:100%;display:inline-block;width:30%}#map{height:100%;width:100%}.marker-title{font-weight:700;text-decoration:underline;margin-bottom:10px;font-family:'Roboto Slab',serif}.marker-content{font-family:'Raleway',sans-serif}.search-bar{display:none}select{width:50%;margin-top:15px;margin-left:25px}@media (max-width: 699px){.requestlist{display:none}#listings{display:block;width:100%;height:55px;zindex:1}.fixed{width:100%;height:100%;display:block;margin-top:60px}}
+        .fixed,.fixed-search{position:fixed;display:inline-block}body,html{height:100%;padding:0;margin:0;width:100%}#listings{height:1700px;width:30%;float:left;background-color:#EFEFEF;font-family:Montserrat,sans-serif}.list-view{list-style-type:none;margin-bottom:25px;font-size:18px;margin-left:0;color:#2296F3;height:100%;cursor:pointer}form{background-color:#3F51B5;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.75);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.75);box-shadow:0 2px 5px 0 rgba(0,0,0,.75);height:55px}form input{margin-top:15px;margin-left:20px;border-radius:4px;border:1px solid #3F51B5;height:40%;width:60%;padding-left:15px}#map,.fixed{height:100%}.fixed{width:70%}.fixed-search{height:100%;width:30%}#map{width:100%}.marker-title{font-weight:700;text-decoration:underline;margin-bottom:10px;font-family:'Roboto Slab',serif}.marker-content{font-family:Raleway,sans-serif}.search-bar{display:none}select{width:50%;margin-top:15px;margin-left:25px}@media screen and (max-width:750px){.remove,.requestlist,.show{display:none}#listings,.fixed{width:100%;display:block}#listings{height:55px;zindex:1}.fixed{height:100%;margin-top:60px}}@media screen and (min-width:751px) and (max-width:899px){.fixed{position:fixed;height:100%;display:inline-block;width:60%}#listings{height:1700px;width:40%;float:left;background-color:#EFEFEF;font-family:Montserrat,sans-serif}.show{float:right}}
     </style>
 </head>
 
@@ -22,12 +22,14 @@
             </li>
         </ul>
     </div>
+    <!--Fixed class used to ensure map stays put while user
+    scolls the list of locations-->
     <div class="fixed">
         <div id="map"></div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js" async></script>
-    <script src="js/app.js" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="js/app.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8kGZ-0XTqTP-2z0CS3GytBjx6HDDJ-8M&callback=initMap&libraries=places" async defer></script>
 </body>
 

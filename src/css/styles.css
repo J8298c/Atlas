@@ -6,7 +6,6 @@ body {
     width: 100%;
 }
 
-
 #listings {
     height: 1700px;
     width: 30%;
@@ -49,6 +48,7 @@ form input {
     display: inline-block;
     width: 70%;
 }
+
 .fixed-search {
     position: fixed;
     height: 100%;
@@ -82,22 +82,47 @@ select {
     margin-left: 25px;
 }
 
-
-
-@media (max-width: 699px) {
-    .requestlist {
+@media screen and (max-width: 750px) {
+    
+    .requestlist,
+    .remove,
+    .show {
         display: none;
     }
+    
     #listings {
-       display: block;
+        display: block;
         width: 100%;
         height: 55px;
         zindex: 1;
     }
+    
     .fixed {
         width: 100%;
         height: 100%;
         display: block;
         margin-top: 60px;
+    }
+}
+
+@media screen and (min-width: 751px) and (max-width: 899px) {
+
+    .fixed {
+        position: fixed;
+        height: 100%;
+        display: inline-block;
+        width: 60%;
+    }
+    
+    #listings {
+        height: 1700px;
+        width: 40%;
+        float: left;
+        background-color: #EFEFEF;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .show {
+        float: right;
     }
 }
