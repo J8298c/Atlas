@@ -13,17 +13,19 @@
 
 <body>
     <div id="listings">
+        <!--need to add buttons to toggle markers visibilty-->
         <form>
+            <!--need to hook up to js to grab search value and push to an observable array? or store in var-->
             <input type="text">
             <button class="submitBtn">Search</button>
         </form>
+        <button class="remove">Remove</button>
+        <button class="show">Show</button>
         <ul class="requestlist" data-bind="foreach: createListings">
             <li class="list-view" data-bind="text: title, click: $root.activateMarker">
             </li>
         </ul>
     </div>
-    <!--Fixed class used to ensure map stays put while user
-    scolls the list of locations-->
     <div class="fixed">
         <div id="map"></div>
     </div>
