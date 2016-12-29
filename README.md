@@ -3,25 +3,7 @@
 api, and styled using <span style="color: blue">Snazzy Maps</span>. After browsing through the preloaded locations feel free to search the area using the search bar which
 use the <span style="color: blue">Google Places</span>api to return nearby results, never know what you might find in Forest Hills.</p>
 <h3 style="text-decoration: underline">Code Sample</h3>
-<h4>Google Maps Markers<h4>
-```
-//Used to create markers in multiple locations by passing only the required parameters
-//also inserts content into info window to display when the marker is clicked
-    function createMarker(location, name, formattedAddress) {
-        var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
-        //move content str below create marker && just use created marker position and name as props
-        for (var i = 0; i < Model.markers[0].length; i++) {
-            content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>';
-        }
-        var marker = new google.maps.Marker({
-            position: location,
-            title: name,
-            content: content,
-            map: map,
-            icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
-            animation: google.maps.Animation.DROP
-        });
-```
+
 <h4>Knockout data-binding</h4>
 ```
 //pushes newly created markers to the AppViewModel
@@ -34,6 +16,22 @@ function AppViewModel(marker) {
     self.createListings = ko.observableArray();
 }
 
+```
+```
+ function createMarker(location, name, formattedAddress) {
+        var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
+        //move content str below create marker && just use created marker position and name as props
+        for (var i = 0; i < Model.markers[0].length; i++) {
+            content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>';
+        }
+        var marker = new google.maps.Marker({
+            position: location,
+            title: name,
+            content: content,
+            map: map,
+            icon: 'http://maps.google.com/mapfiles/marker_yellow.png',
+            animation: google.maps.Animation.DROP
+        })
 ```
 <h3 style="text-decoration: underline">SOURCES</h3>
 <ul>
