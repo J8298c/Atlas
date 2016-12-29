@@ -1,4 +1,4 @@
-<h1>My App Title</h1>
+<h1>Neighborhood Atlas</h1>
 <p>An interactive Google maps project based on Forest Hills Queens New York. It comes with preloaded locations using the <span style="color: blue">FourSquare</span>
 api, and styled using <span style="color: blue">Snazzy Maps</span>. After browsing through the preloaded locations feel free to search the area using the search bar which
 use the <span style="color: blue">Google Places</span>api to return nearby results, never know what you might find in Forest Hills.</p>
@@ -42,3 +42,4 @@ function AppViewModel(marker) {
     <li style="list-style-type: none"><a href="https://jquery.com/" target="_blank">jQuery</a></li>
     <li style="list-style-type: none"><a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a></li>
 </ul>
+<p>The live App can be viewed here <a href="https://j8298c.github.io/foresthills_mapApp/">Neighborhood Atlas</a>.</p>
