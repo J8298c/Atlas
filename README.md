@@ -17,7 +17,9 @@ function AppViewModel(marker) {
 }
 
 ```
+<h4>Google Maps</h4>
 ```
+//function to create markers in various points through out the application
  function createMarker(location, name, formattedAddress) {
         var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         //move content str below create marker && just use created marker position and name as props
