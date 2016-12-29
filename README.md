@@ -1,7 +1,12 @@
-# foresthills_mapApp
-Udacity neighborhood project using Google Maps API and Foursquare
+<h1>My App Title</h1>
+<p>An interactive Google maps project based on Forest Hills Queens New York. It comes with preloaded locations using the <span style="color: blue">FourSquare</span>
+api, and styled using <span style="color: blue">Snazzy Maps</span>. After browsing through the preloaded locations feel free to search the area using the search bar which
+use the <span style="color: blue">Google Places</span>api to return nearby results, never know what you might find in Forest Hills.</p>
+<h3 style="text-decoration: underline">Code Sample</h3>
+<h4>Google Maps Markers<h4>
 ```
 //Used to create markers in multiple locations by passing only the required parameters
+//also inserts content into info window to display when the marker is clicked
     function createMarker(location, name, formattedAddress) {
         var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         //move content str below create marker && just use created marker position and name as props
@@ -17,3 +22,23 @@ Udacity neighborhood project using Google Maps API and Foursquare
             animation: google.maps.Animation.DROP
         });
 ```
+<h4>Knockout data-binding</h4>
+```
+//pushes newly created markers to the AppViewModel
+ vm = new AppViewModel();
+ vm.createListings.push(marker);
+ 
+//Knockout AppViewModel to populate created markers title into the list-view
+function AppViewModel(marker) {
+    var self = this;
+    self.createListings = ko.observableArray();
+}
+
+```
+<h3 style="text-decoration: underline">SOURCES</h3>
+<ul>
+    <li style="list-style-type: none"><a href="http://knockoutjs.com" target="_blank">Knockout JS</a></li>
+    <li style="list-style-type: none"><a href="https://developers.google.com/maps/documentation/javascript/" target="_blank">Google Maps Api</a></li>
+    <li style="list-style-type: none"><a href="https://jquery.com/" target="_blank">jQuery</a></li>
+    <li style="list-style-type: none"><a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a></li>
+</ul>
