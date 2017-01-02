@@ -69,7 +69,7 @@ function initMap() {
                 Model.markers.push(foursquareResponse);
             }
             for (var i = 0; i < Model.markers[0].length; i++) {
-                createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress);
+                createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress, Model.markers[0][i].contact.formattedPhone);
             }
         }).fail(function() {
             for (var i = 0; i < Model.locations.length; i++) {
@@ -80,11 +80,11 @@ function initMap() {
     getFourSquare();
     //creates marker function to call whenever I need to create a marker
     //also works in animating marker upon being clicked
-    function createMarker(location, name, formattedAddress) {
+    function createMarker(location, name, formattedAddress, contactInfo) {
         var streetViewURL = 'https://maps.googleapis.com/maps/api/streetview?size=300x300&location=';
         //move content str below create marker && just use created marker position and name as props
         for (var i = 0; i < Model.markers[0].length; i++) {
-            content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>';
+            content = '<div><img src="' + streetViewURL + formattedAddress + '">' + '<div class="marker-title">' + name + '</div>' + '<div class="marker-location">' + formattedAddress + '</div>' + '<div class="contact-info">' + contactInfo +'</div>';
         }
         var marker = new google.maps.Marker({
             position: location,
