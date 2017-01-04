@@ -16,6 +16,9 @@
             <button class="submitBtn">Search</button>
             <!--will only display in mobile view to show names of locations from request-->
         </form>
+        <select data-bind="foreach: categories">
+            <option value="" data-bind="text: $data"></option>
+        </select>
         <button class="remove">Remove</button>
         <button class="show">Show</button>
         <!--will only display in mobile view to show names of locations from request-->

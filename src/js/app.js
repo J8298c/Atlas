@@ -36,6 +36,9 @@ function AppViewModel(marker) {
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
+    //function to filter throught categories and display selected category on list-view
+  self.categories = ko.observableArray();
+
    
 }
 
@@ -67,6 +70,9 @@ function initMap() {
             if (Model.markers.length === 0) {
                 console.log('nothing in the marker')
                 Model.markers.push(foursquareResponse);
+                for(var i = 0; i < foursquareResponse.length; i ++){
+                        vm.categories.push([foursquareResponse[i].name, foursquareResponse[i].categories.pluralName]);
+                }
             }
             for (var i = 0; i < Model.markers[0].length; i++) {
                 createMarker(Model.markers[0][i].location, Model.markers[0][i].name, Model.markers[0][i].location.formattedAddress, Model.markers[0][i].contact.formattedPhone);
