@@ -1,5 +1,6 @@
 var map;
 var vm;
+var marker;
 var Model = {
     //Places of intrests hardcoded into app.js to work on failure from
     //foursquare api request so users still has some markers show up on map
@@ -37,9 +38,7 @@ function AppViewModel(marker) {
         google.maps.event.trigger(marker, 'click');
     };
     //function to filter throught categories and display selected category on list-view
-  self.categories = ko.observableArray();
-
-   
+  self.categories = ko.observableArray();   
 }
 
 function initMap() {
@@ -106,12 +105,12 @@ function initMap() {
         var infowindow = new google.maps.InfoWindow({});
         //function to hide all current markers on map
         function hideMarker(){
-            $('.remove').on('click', function(){
+            // $('.remove').on('click', function(){
                 console.log('poof theyre gone');
                 for(var i = 0; i < Model.markers.length; i++){
                     marker.setVisible(false);
                 }
-            })
+            // })
         }
         hideMarker()
         //function to set markers back on map after user clicks the hide marker

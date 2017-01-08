@@ -5,7 +5,9 @@ body {
     margin: 0;
     width: 100%;
 }
-
+.hide {
+    display: none;
+} 
 #listings {
     height: 1700px;
     width: 30%;

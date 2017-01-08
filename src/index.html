@@ -19,7 +19,7 @@
         <select data-bind="foreach: categories">
             <option value="" data-bind="text: $data"></option>
         </select>
-        <button class="remove">Remove</button>
+        <button class="remove" data-bind="click: hideMarker">Remove</button>
         <button class="show">Show</button>
         <!--will only display in mobile view to show names of locations from request-->
         <ul class="requestlist" data-bind="foreach: createListings">
