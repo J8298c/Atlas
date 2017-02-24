@@ -42,4 +42,4 @@ function AppViewModel(marker) {
     <li style="list-style-type: none"><a href="https://jquery.com/" target="_blank">jQuery</a></li>
     <li style="list-style-type: none"><a href="https://snazzymaps.com/" target="_blank">Snazzy Maps</a></li>
 </ul>
-<p>The live App can be viewed here <a href="https://j8298c.github.io/Neighborhood_Atlas/">Neighborhood Atlas</a>.</p>
+<p>The live App can be viewed here <a href="https://j8298c.github.io/Atlas/">Neighborhood Atlas</a>.</p>
