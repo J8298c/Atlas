@@ -43,7 +43,11 @@ form input {
     width: 60%;
     padding-left: 15px;
 }
-
+#listFilter {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 45%;
+}
 .fixed {
     position: fixed;
     height: 100%;

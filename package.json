@@ -1,0 +1,33 @@
+{
+  "name": "atlas",
+  "version": "1.0.1",
+  "description": "google maps app with foursquare api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J8298c/Atlas.git"
+  },
+  "keywords": [
+    "google",
+    "maps",
+    "foursquare",
+    "places"
+  ],
+  "author": "Julio Mojica",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/J8298c/Atlas/issues"
+  },
+  "homepage": "https://github.com/J8298c/Atlas#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "clean-css": "^4.0.8",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "0.0.15"
+  }
+}

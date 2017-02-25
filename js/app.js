@@ -3,7 +3,7 @@ var vm;
 var markers =[];
 var marker;
 var streetViewAddress;
-
+$('select').attr('selectedIndex', -1);
 var Model = {
     //Places of intrests hardcoded into app.js to work on failure from
     //foursquare api request so users still has some markers show up on map
@@ -32,23 +32,36 @@ var Model = {
 
 function AppViewModel(marker){
     var self = this;
+    //handles side list to show names of places
     self.createListings = ko.observableArray();
-
+    //handles markers animation for side list
     self.animateMarker = function(currentItem){
         var marker = currentItem;
         google.maps.event.trigger(marker, 'click');
     };
+    self.listFilter = function(header, list){
+      var $markersDropDown = $('.markers-dropDown').val()
+      $markersDropDown.on('change', function(){
+          console.log($markersDropDown)
+      })
+
+
+      // var $listFilter = $('#listFilter');
+      // var $listView = $('.list-view');
+
+      // $listFilter.on("keyup", function(index){
+      //   // index = $listFilter.val();
+      //   // console.log($listView[0].innerHTML)
+      //   // for(var i = 0; i < $listView.length; i++){
+      //   //   // if(index !== $listView[i].innerText[0]){
+      //   //   //   $listView.fadeOut();
+      //   //   // }
+      //   // }
+      // })
+    }
 
     self.categories = ko.observableArray();
 
-    self.selectMarker = function(currentItem){
-        var marker = currentItem;
-        google.maps.event.trigger(marker, 'select', selectHandler);
-        function selectHandler(e){
-          console.log('you selected', e);
-        }
-        console.log('selected');
-    }
     self.hideAllMarkers = function(){
         for(var i = 0; i < markers.length; i++){
           markers[i].setVisible(false);
@@ -116,7 +129,6 @@ function initMap(){
         		dataType: "json"
         	}).done(function(data) {
         		var foursquareResponse = data.response.venues;
-            console.log(foursquareResponse);
         		if(markers.length === 0){
                     for(var i = 0; i < foursquareResponse.length; i++){
                       var contentString = '<div><h5>'+ foursquareResponse[i].name + '</h5><br><div>' + foursquareResponse[i].location.formattedAddress + '</div><br><div>'+ foursquareResponse[i].contact.formattedPhone + '</div><br><div> FourSquare Check Ins: ' + foursquareResponse[i].stats.checkinsCount + ' Users Visitied: ' + foursquareResponse[i].stats.usersCount + '</div></div>';
@@ -148,6 +160,8 @@ function initMap(){
             }
         });
     }
+
+
     $('.submitBtn').on('click', function(){
         for(var i = 0; i < markers.length; i++){
           markers[i].setMap(null);

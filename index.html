@@ -16,15 +16,17 @@
             <button class="submitBtn">Search</button>
             <!--will only display in mobile view to show names of locations from request-->
         </form>
+            <!-- <input id="listFilter" type="text" name="list-filter" value="" placeholder="Search through the listings" data-bind="click: listFilter"> -->
         <select data-bind="foreach: categories">
-            <option value="" data-bind="text: title"></option>
+          <!-- <option disabled selected value> </option> -->
+            <option value="" class="markers-dropDown" data-bind="text: title, value: title, selectedOption: listFilter"></option>
         </select>
         <button class="remove" data-bind="click: $root.hideAllMarkers">Remove</button>
         <button class="show" data-bind="click: $root.showAllMarkers">Show</button>
         <!--will only display in mobile view to show names of locations from request-->
         <ul class="requestlist" data-bind="foreach: createListings">
             <!--<p>Lets find <span data-bind="text: searchQuery"></span> in the area</p>-->
-            <li class="list-view" data-bind="text: title , click: $root.animateMarker">
+            <li class="list-view" data-bind="text: title , click: $root.animateMarker"><a href=""></a>
             </li>
         </ul>
     </div>
